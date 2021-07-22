@@ -56,7 +56,7 @@ public class CartController {
 			.forEach(i -> cart.addItem(item.get()));
 		cartRepository.save(cart);
 
-		log.info("There was an Item added: " + request.getItemId() + "to Cart of User" + user.getUsername());
+		log.info("There was an Item added: " + request.getItemId() + " to Cart of User" + user.getUsername());
 		return ResponseEntity.ok(cart);
 	}
 	
@@ -71,7 +71,7 @@ public class CartController {
 		Optional<Item> item = itemRepository.findById(request.getItemId());
 		if(!item.isPresent()) {
 
-			log.warn("There was no item found" + user.getUsername());
+			log.warn("There was no item found " + user.getUsername());
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		Cart cart = user.getCart();
@@ -79,7 +79,7 @@ public class CartController {
 			.forEach(i -> cart.removeItem(item.get()));
 		cartRepository.save(cart);
 
-		log.info("There was an Item removed: " + request.getItemId() + "by the cart of the User: " + user.getUsername());
+		log.info("There was an Item removed: " + request.getItemId() + " by the cart of the User: " + user.getUsername());
 		return ResponseEntity.ok(cart);
 	}
 		

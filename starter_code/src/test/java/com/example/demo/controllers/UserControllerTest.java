@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 
 public class UserControllerTest {
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder = mock(BCryptPasswordEncoder.class);
+    private final BCryptPasswordEncoder encoder = mock(BCryptPasswordEncoder.class);
     private final CartRepository cartRepository = mock(CartRepository.class);
     private UserController userController;
     private final UserRepository userRepository = mock(UserRepository.class);
@@ -27,18 +27,18 @@ public class UserControllerTest {
     @Before
     public void init() {
         userController = new UserController();
-        TestUtils.injectObjects(userController, "bcryptPasswordEncoder", bCryptPasswordEncoder);
+        TestUtils.injectObjects(userController, "bCryptPasswordEncoder", encoder);
         TestUtils.injectObjects(userController, "cartRepository", cartRepository);
         TestUtils.injectObjects(userController, "userRepository", userRepository);
     }
 
     @Test
     public void createUserHappy() throws Exception {
-        when(bCryptPasswordEncoder.encode("Pass")).thenReturn("Hash");
+        when(encoder.encode("Securepass")).thenReturn("Hash");
         CreateUserRequest userRequest = new CreateUserRequest();
         userRequest.setUsername("Name");
-        userRequest.setPassword("Pass");
-        userRequest.setConfirmPassword("Pass");
+        userRequest.setPassword("Securepass");
+        userRequest.setConfirmPassword("Securepass");
 
         ResponseEntity<User> response = userController.createUser(userRequest);
 
@@ -81,7 +81,7 @@ public class UserControllerTest {
         Assert.assertEquals(user, response.getBody());
         Assert.assertEquals(4L, user.getId());
         Assert.assertEquals("Name", user.getUsername());
-        Assert.assertEquals("Pass", user.getPassword());
+        Assert.assertEquals("Securepass", user.getPassword());
     }
 
     @Test

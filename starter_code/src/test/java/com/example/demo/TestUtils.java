@@ -62,7 +62,7 @@ public class TestUtils {
         User user = new User();
         user.setId(4L);
         user.setUsername("Name");
-        user.setPassword("Pass");
+        user.setPassword("Securepass");
         user.setCart(emptyCart());
         return user;
     }
