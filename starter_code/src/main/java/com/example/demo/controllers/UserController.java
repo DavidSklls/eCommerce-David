@@ -25,7 +25,7 @@ public class UserController {
 	private final static Logger log = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
-	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Autowired
 	private CartRepository cartRepository;
@@ -60,7 +60,7 @@ public class UserController {
 			log.warn("There was a problem, please fill in another password ", createUserRequest.getUsername());
 			return ResponseEntity.badRequest().build();
 		}
-		user.setPassword(bcryptPasswordEncoder.encode(createUserRequest.getPassword()));
+		user.setPassword(bCryptPasswordEncoder.encode(createUserRequest.getPassword()));
 
 		userRepository.save(user);
 		log.info("User was successfully created ", user.getUsername());
